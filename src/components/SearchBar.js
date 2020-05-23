@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "axios";
+import { Card } from "react-bootstrap";
+import "../css/SearchBar.css";
 
 class SearchBar extends React.Component {
   constructor(props) {
@@ -11,6 +13,7 @@ class SearchBar extends React.Component {
       released: "",
       rating: "",
       website: "",
+      image: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -47,6 +50,7 @@ class SearchBar extends React.Component {
           released: response.data.released,
           rating: response.data.rating,
           website: response.data.website,
+          image: response.data.background_image,
         });
         console.log(this.state);
       })
@@ -58,16 +62,28 @@ class SearchBar extends React.Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <input type="text" placeholder="" onChange={this.handleChange} />
-          <button type="submit"></button>
+        <form className="searchbar-container" onSubmit={this.handleSubmit}>
+          <input type="text" placeholder="Seach" onChange={this.handleChange} />
         </form>
         <div>
-          {this.state.name}
-          {this.state.description}
-          {this.state.released}
-          {this.state.rating}
-          {this.state.website}
+          <Card style={{ width: "18rem" }}>
+            <Card.Img variant="top" src={this.state.image} />
+            <Card.Body>
+              <Card.Title>{this.state.name}</Card.Title>
+              <Card.Body>{this.state.description}</Card.Body>
+              <Card.Text>{this.state.released}</Card.Text>
+              <Card.Text>{this.state.rating}</Card.Text>
+              {/* <Card.Text>
+                <a
+                  href={this.state.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Site
+                </a>
+              </Card.Text> */}
+            </Card.Body>
+          </Card>
         </div>
       </div>
     );
