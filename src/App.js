@@ -4,6 +4,7 @@ import Platforms from "./components/Platforms";
 import Genres from "./components/Genres";
 import Home from "./components/Home";
 import "./App.css";
+import "./css/Navigation.css";
 
 export default function App() {
   return (
