@@ -32,9 +32,10 @@ class SearchBar extends React.Component {
   }
 
   search = () => {
+    let searchName = this.state.value.replace(/\s/g, "-");
     axios({
       method: "GET",
-      url: `https://rawg-video-games-database.p.rapidapi.com/games/${this.state.value}`,
+      url: `https://rawg-video-games-database.p.rapidapi.com/games/${searchName}`,
       headers: {
         "content-type": "application/octet-stream",
         "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com",
@@ -42,6 +43,33 @@ class SearchBar extends React.Component {
         useQueryString: true,
       },
     })
+      .then((response) => {
+        console.log(response);
+        if (response.data.redirect) {
+          searchName = response.data.slug;
+          axios({
+            method: "GET",
+            url: `https://rawg-video-games-database.p.rapidapi.com/games/${searchName}`,
+            headers: {
+              "content-type": "application/octet-stream",
+              "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com",
+              "x-rapidapi-key":
+                "188d36923bmsh1cbb4c7515464c7p1c4e20jsne2bf8aced8f7",
+              useQueryString: true,
+            },
+          }).then((response) => {
+            console.log(response);
+            this.setState({
+              name: response.data.name,
+              description: response.data.description,
+              released: response.data.released,
+              rating: response.data.rating,
+              website: response.data.website,
+              image: response.data.background_image,
+            });
+          });
+        }
+      })
       .then((response) => {
         console.log(response);
         this.setState({
@@ -54,10 +82,36 @@ class SearchBar extends React.Component {
         });
         console.log(this.state);
       })
+
       .catch((error) => {
         console.log(error);
       });
   };
+
+  // redirect = () => {
+  //   searchName = response.data.slug;
+  //   axios({
+  //     method: "GET",
+  //     url: `https://rawg-video-games-database.p.rapidapi.com/games/${searchName}`,
+  //     headers: {
+  //       "content-type": "application/octet-stream",
+  //       "x-rapidapi-host": "rawg-video-games-database.p.rapidapi.com",
+  //       "x-rapidapi-key": "188d36923bmsh1cbb4c7515464c7p1c4e20jsne2bf8aced8f7",
+  //       useQueryString: true,
+  //     },
+  //   }).then((response) => {
+  //     console.log(response);
+  //     this.setState({
+  //       name: response.data.name,
+  //       description: response.data.description,
+  //       released: response.data.released,
+  //       rating: response.data.rating,
+  //       website: response.data.website,
+  //       image: response.data.background_image,
+  //     });
+  //     console.log(this.state);
+  //   });
+  // };
 
   render() {
     return (
