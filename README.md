@@ -1,5 +1,7 @@
 # Game-Search
 
+[Game-Search](https://jrosario22.github.io/game-search/)
+
 Game-Search is a search app for video games. Here you can information on over 350,000 video games.
 
 ![](example.gif)
