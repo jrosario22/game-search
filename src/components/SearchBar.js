@@ -17,27 +17,17 @@ class SearchBar extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    // this.updateShown = this.updateShown.bind(this);
     this.search = this.search.bind(this);
   }
 
-  //For when input is being placed
   handleChange(event) {
     this.setState({ value: event.target.value });
   }
 
-  //For when search field is empty
   handleSubmit(event) {
     this.search();
-    this.updateShown();
-    this.event.preventDefault();
+    event.preventDefault();
   }
-
-  // updateShown = () => {
-  //   this.setState((props) => ({
-  //     isShown: !props.isShown,
-  //   }));
-  // };
 
   search = () => {
     let searchName = this.state.value.replace(/\s/g, "-");
@@ -101,11 +91,7 @@ class SearchBar extends React.Component {
 
     if (isShown) {
       card = (
-        <Card
-          style={{ width: "18rem" }}
-          onClick={this.state.website}
-          isShown={isShown}
-        >
+        <Card style={{ width: "18rem" }} onClick={this.state.website}>
           <Card.Img variant="top" src={this.state.image} />
           <Card.Body>
             <Card.Title>{this.state.name}</Card.Title>
@@ -123,17 +109,7 @@ class SearchBar extends React.Component {
         <form className="searchbar-container" onSubmit={this.handleSubmit}>
           <input type="text" placeholder="Seach" onChange={this.handleChange} />
         </form>
-        <div className="flex-container">
-          {/* <Card style={{ width: "18rem" }} onClick={this.state.website}>
-            <Card.Img variant="top" src={this.state.image} />
-            <Card.Body>
-              <Card.Title>{this.state.name}</Card.Title>
-              <Card.Text>Released: {this.state.released}</Card.Text>
-              <Card.Text>Rating: {this.state.rating}</Card.Text>
-            </Card.Body>
-          </Card> */}
-          {card}
-        </div>
+        <div className="flex-container">{card}</div>
       </div>
     );
   }
