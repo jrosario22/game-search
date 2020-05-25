@@ -107,7 +107,11 @@ class SearchBar extends React.Component {
     return (
       <div>
         <form className="searchbar-container" onSubmit={this.handleSubmit}>
-          <input type="text" placeholder="Seach" onChange={this.handleChange} />
+          <input
+            type="text"
+            placeholder="Search"
+            onChange={this.handleChange}
+          />
         </form>
         <div className="flex-container">{card}</div>
       </div>
