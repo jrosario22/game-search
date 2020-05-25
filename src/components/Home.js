@@ -6,6 +6,7 @@ export default function Home() {
     <div>
       <h1>Welcome to Game-Search</h1>
       <h2>Find over 350,000+ titles!</h2>
+      <br></br>
       <SearchBar />
     </div>
   );
